@@ -73,8 +73,8 @@ body {
 button {
   background-color: transparent;
   border: none;
-  /* font-family: gotham;
-  font-weight: 500; */
+  font-family: gotham;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
   text-align: center;
