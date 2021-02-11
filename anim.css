@@ -1,0 +1,31 @@
+/* Copyright 2018 Google LLC.
+SPDX-License-Identifier: Apache-2.0 */
+
+/* CSS files add styling rules to your content */
+
+body {
+    font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+    margin: 2em;
+  }
+  
+  .container {
+
+  }
+  
+  .box {
+      width: 64px;
+      height: 64px;
+    border: 3px solid #666;
+    background-color: #ddd;
+    border-radius: .5em;
+    padding: 0px;
+    cursor: move;
+  }
+  
+  .box.over {
+    border: 3px dotted #666;
+  }
+  
+  [draggable] {
+    user-select: none;
+  }

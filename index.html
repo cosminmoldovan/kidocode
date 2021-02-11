@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kidocode</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        #palm-left{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            opacity: 0.2;
+            z-index: -10;
+        }
+        #palm-right{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            opacity: 0.2;
+            z-index: -10;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <img id="palm-left" src="/img/palm-left.png" width="200px">
+    <img id="palm-right" src="/img/palm-right.png" width="200px"> -->
+    <nav>
+        <!-- <div class="logo">poke<span style="display:inline-block; transform:rotate(180deg); font-size: 18px;margin-right: 4px;">&#8623;</span>code</div> -->
+        <div class="logo">kidocode</div>
+
+        <div class="menu">
+            <div class="settings-icon" title="settings"><img src="img/settings.svg"><img src="img/arrow_drop_down.svg">
+            </div>
+        </div>
+    </nav>
+    <!-- <span>&#8623;</span> -->
+    <main>
+        <section id="playSection">
+            <div id="btnContainer">
+                <button class="reset actionbtn hover" id="reset"><img src="img/replay.svg"><span>reset</span></button>
+                <button class="run actionbtn hover" id="run"><img src="img/play-arrow.svg"><span>run</span></button>
+            </div>
+            <div style="display:none;">
+                <img id="tile" src="img/tile.svg">
+                <img id="robot" src="img/up-arrow.svg">
+                <img id="bitcoin" src="img/pikachu.svg">
+            </div>
+            <div id="canvasContainer">
+                <canvas id="canvas">
+                    Your browser does not support HTML5 Canvas!
+                </canvas>
+            </div>
+        </section>
+
+        <section id="codeSection">
+            <div id="zone">
+                <div class="tabs">
+                    <button class="tablinks active" onclick="switchParent(event, 'parent1')">main</button>
+                    <button class="tablinks" onclick="switchParent(event, 'parent2')">procedure</button>
+                </div>
+
+                <div class="code-area tabcontent parent" id="parent1" style="display: block;">
+                    <div id="main-area" class="code-zone main-area">
+                        <div class="code-line" draggable="true">
+                            <div class="line-number"></div>
+                            <div class="line-content droppable"></div>
+                            <div class="delete-line" onclick="emptyLine(this)">x</div>
+                        </div>
+                        <div class="code-line" draggable="true">
+                            <div class="line-number"></div>
+                            <div class="line-content droppable"></div>
+                            <div class="delete-line">x</div>
+                        </div>
+                        <div class="code-line" draggable="true">
+                            <div class="line-number"></div>
+                            <div class="line-content droppable"></div>
+                            <div class="delete-line">x</div>
+                        </div>
+                        <div class="code-line" draggable="true">
+                            <div class="line-number"></div>
+                            <div class="line-content droppable"></div>
+                            <div class="delete-line">x</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-area tabcontent" id="parent2">
+                    <div class="code-zone procedure-area">
+                        <div class="code-line" draggable="true">
+                            <div class="line-number"></div>
+                            <div class="line-content droppable"></div>
+                            <div class="delete-line" onclick="emptyLine(this)">x</div>
+                        </div>
+                        <div class="code-line" draggable="true">
+                            <div class="line-number"></div>
+                            <div class="line-content droppable"></div>
+                            <div class="delete-line">x</div>
+                        </div>
+                        <div class="code-line" draggable="true">
+                            <div class="line-number"></div>
+                            <div class="line-content droppable"></div>
+                            <div class="delete-line">x</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="code-blocks-container">
+                <div id="forward" class="forward code-block draggable" data-command="forward" draggable="true">
+                    <span>move forward</span>
+                </div>
+                <div id="turn" class="turn code-block draggable" data-command="turn" draggable="true">
+                    <span>turn</span>
+                </div>
+                <div id="catch" class="catch code-block draggable" data-command="catch" draggable="true">
+                    <span>catch</span>
+                </div>
+                <div id="proc" class="proc code-block draggable" data-command="proc" draggable="true">
+                    <span>procedure</span>
+                </div>
+                <div id="ifwall" class="ifwall code-block draggable" data-command="ifwall" draggable="true">
+                    <span>if wall</span>
+                </div>
+                <div id="else" class="else code-block draggable" data-command="else" draggable="true">
+                    <span>else</span>
+                </div>
+                <div id="endif" class="ifwall code-block draggable" data-command="endif" draggable="true">
+                    <span>END if</span>
+                </div>
+                <div id="repeat" class="repeat code-block draggable" data-command="repeat" draggable="true">
+                        <div>repeat</div><div class="nrit" onclick="increaseValue(this)">1</div>
+                       
+                </div>
+                <div id="endrepeat" class="repeat code-block draggable" data-command="endrepeat" draggable="true">
+                    <span>END repeat</span>
+                </div>
+            </div>
+        </section>
+
+
+
+    </main>
+    <script src="js/main.js"></script>
+    <script src="js/moveable.js"></script>
+    <script src="js/drag-and-drop.js"></script>
+    <script>
+
+        function emptyLine(elem){
+            const previousSibling = elem.previousElementSibling;
+            previousSibling.removeChild(previousSibling.childNodes[0]);
+            previousSibling.classList.add('droppable');
+        }
+        function increaseValue(item){
+            let value = Number(item.innerHTML);
+             if(value<5){
+                 value++;
+                 item.innerHTML = value;
+                
+             }
+             if(value>=5){
+                    value = 1;
+                    item.innerHTML = value;
+             }
+                
+             
+            
+        }        
+       
+        //    const codeLine = document.getElementsByClassName("code-line");
+            const lineNumber = document.getElementsByClassName("line-number");
+            for (i = 0; i < lineNumber.length; i++) {
+                if(lineNumber[i].parentElement.parentElement.classList.contains('main-area'))
+                    lineNumber[i].innerHTML=i;
+            }
+            function blockImportance(block){
+                if(block.classList.contains('forward')){
+                    return 1;
+                }
+                if(block.classList.contains('ifwall')){
+                    return 2;
+                }
+                if(block.classList.contains('repeat')){
+                    return 3;
+                }
+            }
+            const children = document.getElementById('main-area').children;
+            for (let i = 0; i < children.length; i++) {
+                let element = children[i].childNodes[3].childNodes[1];
+                element.style.backgroundColor = 'red';
+                 let nextElement = children[i+1].childNodes[3].childNodes[1];
+                if(blockImportance(nextElement)<blockImportance(element)){
+                    nextElement.style.marginLeft = "16px";
+                }
+            }
+        
+    </script>
+    <script>
+        function switchParent(evt, idParent) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove('parent');
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(idParent).style.display = "block";
+            document.getElementById(idParent).className += " parent";
+            evt.currentTarget.className += " active";
+        }
+
+    </script>
+</body>
+
+</html>
