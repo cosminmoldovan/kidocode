@@ -1,12 +1,12 @@
 @font-face {
   font-family: 'gotham';
-  src: url(/fonts/GothamRounded-Medium.otf);
+  src: url(../fonts/GothamRounded-Medium.otf);
   font-style: normal;
   font-weight: 500;
 }
 @font-face {
   font-family: 'gotham';
-  src: url(/fonts/GothamRounded-Bold.otf);
+  src: url(../fonts/GothamRounded-Bold.otf);
   font-style: normal;
   font-weight: 700;
 }
