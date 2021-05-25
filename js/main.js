@@ -11,23 +11,19 @@ function canvasApp() {
     //#region GLOBAL VARIABLES
 
     // GLOBAL COLORS
-    const gray50="#ffffff";
-    const gray75="#fafafa";
+    const gray50 = "#ffffff";
+    const gray75 = "#fafafa";
+
 
     // CANVAS DIMENSIONS
-    var canvasWidth=456;
-    var canvasHeight=480;
+    var canvasWidth = 456;
+    var canvasHeight = 480;
 
-    // CHARACTER POSITION
-    let charPosX = 81;
-    let charPosY = 325;
-
-    // COIN POSITION
-    let coinPosX = 81;
-    let coinPosY = 85;
-
-    // INDEX FOR INSTRUCTIONS
-    let index = 0;
+    const xUnit = 76;
+    const yUnit = 80;
+    const padding = 4;
+    let pokeUrl;
+    let grid = createMatrix(6, 6); 
 
     //#endregion
 
@@ -36,13 +32,13 @@ function canvasApp() {
     let canvas = document.getElementById("canvas");
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
-    let ctx = canvas.getContext("2d");
+    let context = canvas.getContext("2d");
 
     //#endregion
 
     //#region DRAW FUNCTIONS
 
-    function drawRect(x,y){
+    function drawRect(x, y) {
 
         var rectX = x;
         var rectY = y;
@@ -50,49 +46,70 @@ function canvasApp() {
         var rectHeight = 70;
         var lineWidth = 1;
 
-        ctx.strokeStyle = "#C1C1C1";
-        ctx.fillStyle = "#FFFFFF";
-        ctx.rect(rectX, rectY, rectWidth, rectHeight);
-        ctx.fill();
-        ctx.lineWidth = lineWidth;
-        ctx.stroke();
+        context.strokeStyle = "#C1C1C1";
+        context.fillStyle = "#FFFFFF";
+        context.rect(rectX, rectY, rectWidth, rectHeight);
+        context.fill();
+        context.lineWidth = lineWidth;
+        context.stroke();
 
     }
-
-    function drawGrid(){
-        for(j=1; j<=480;j=j+80){
-            for(i=1; i<=456;i=i+76){
-                // drawRect(i,j);
-                // ctx.drawImage('./img/tile.svg', i, j);
-                const image = document.getElementById('tile');
-                ctx.drawImage(image, i,j);
+    function createMatrix(numRows, numColumns) { 
+        let array = new Array(numRows);  
+        for(let i = 0; i < numColumns; i++) { 
+            array[i] = new Array(numColumns);  
+        } 
+     
+        return array;  
+    } 
+    function drawGrid() { 
+        console.table(grid);
+        // loop the outer array
+        // r for row, c for column
+        for (let r = 0; r < grid.length; r++) {
+            // get the size of the inner array
+            var innerArrayLength = grid[r].length;
+            // loop the inner array
+            for (let c = 0; c < innerArrayLength; c++) {
+                let item = grid[r][c];
+                switch(item){
+                    case 1:
+                        drawImage("../img/wall.svg",c*xUnit,r*yUnit);
+                        break;
+                    case 2:
+                        drawImage("../img/tile.svg",c*xUnit,r*yUnit);
+                        drawImage(pokeUrl,c*xUnit+padding,r*yUnit+padding);
+                        break;
+                    case 3:
+                        drawImage("../img/tile.svg",c*xUnit,r*yUnit);
+                        drawImage("../img/up-arrow.svg",c*xUnit+padding,r*yUnit+padding);
+                        break;
+                    case 4:
+                        drawImage("../img/tile.svg",c*xUnit,r*yUnit);
+                        drawImage(pokeUrl,c*xUnit+padding,r*yUnit+padding);
+                        drawImage("../img/up-arrow.svg",c*xUnit+padding,r*yUnit+padding);
+                        break;
+                    default:
+                        drawImage("../img/tile.svg",c*xUnit,r*yUnit);
+                }
             }
         }
     }
-
-    function drawBitcoin(){
-        const image = document.getElementById('bitcoin');
-        ctx.drawImage(image, coinPosX,coinPosY);
-    }
-    
-    function drawRobot(){
-        const image = document.getElementById('robot');
-        ctx.drawImage(image, charPosX,charPosY);
-
-        // ctx.font = "42px Arial";
-        // var emoji="🐷";
-        // ctx.fillText(emoji,charPosX, charPosY);
-    }
-
-    function drawScene(){
-        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-        drawGrid(); 
-        drawBitcoin();
-        drawRobot();
-
-        if((charPosX>=coinPosX-16 && charPosX<=coinPosX+48) && (charPosY>=coinPosY-16 && charPosY<=coinPosY+48)){
-            console.log('SAME POSITION');
+    function drawImage(url,x,y) {
+        // Create an image object. This is not attached to the DOM and is not part of the page.
+        var image = new Image();
+        // When the image has loaded, draw it to the canvas
+        image.onload = function () {
+            // draw image...
+            context.drawImage(image, x, y);
         }
+
+        // Now set the source of the image that we want to load
+        image.src = url;
+    }
+    function drawScene() {
+        context.clearRect(0, 0, canvasWidth, canvasHeight);
+        drawGrid();
     }
 
     //#endregion
@@ -100,56 +117,122 @@ function canvasApp() {
     //#region ACTION BUTTONS
 
     const runBtn = document.getElementById('run');
-    runBtn.addEventListener('click',executeInstructions);
+    runBtn.addEventListener('click', executeInstructions);
 
     const resetBtn = document.getElementById('reset');
-    resetBtn.addEventListener('click',reset);
+    resetBtn.addEventListener('click', reset);
 
     //#endregion
 
     //#region INSTRUCTIONS
 
-    function up(){
-        charPosY=charPosY-64;
-        drawScene();
-            
-    }
-    
-    function down(){
-        charPosY=charPosY+64;
-        drawScene();
+    function forward() {
+        console.log('execute forward');
+        // let arrowX;
+        // let arrowY;
+        for (let r = 0; r < grid.length; r++) {
+            var innerArrayLength = grid[r].length;
+            for (let c = 0; c < innerArrayLength; c++) {
+                if(grid[r][c]==3){
+                    if(grid[r-1][c]==0){
+                        grid[r][c]=0;
+                        grid[r-1][c]=3;
+                    }
+                    else if(grid[r-1][c]==2){
+                        grid[r][c]=0;
+                        grid[r-1][c]=4;
+                        console.log('esti pe poke');
+                    }
+                    else{
+                        window.alert('zid');
+                    }
+                   
+                }
+                else if(grid[r][c]==4){
+                    if(grid[r-1][c]==0){
+                        grid[r][c]=2;
+                        grid[r-1][c]=3;
+                        console.log('deasupra de poke');
+                    }
+                    else{
+                        console.log('zidescu');
+                    }
+                }
+            }
+        }
+        drawGrid();
 
     }
 
-    function left(){
-        charPosX=charPosX-64;
-        drawScene();
+    function left() {
+        console.log('execute left');
+        for (let r = 0; r < grid.length; r++) {
+            var innerArrayLength = grid[r].length;
+            for (let c = 0; c < innerArrayLength; c++) {
+                if(grid[r][c]==3){
+                    if(grid[r][c-1]==0){
+                        grid[r][c]=0;
+                        grid[r][c-1]=3;
+                    }
+                    else if(grid[r][c-1]==2){
+                        grid[r][c]=0;
+                        grid[r][c-1]=4;
+                        console.log('esti pe poke');
+                    }
+                    else{
+                        window.alert('zid');
+                    }
+                   
+                }
+                else if(grid[r][c]==4){
+                    if(grid[r][c-1]==0){
+                        grid[r][c]=2;
+                        grid[r][c-1]=3;
+                        console.log('deasupra de poke');
+                    }
+                    else{
+                        console.log('zidescu');
+                    }
+                }
+            }
+        }
+        drawGrid();
 
     }
 
-    function right(){
-        charPosX=charPosX+64;
-        drawScene();
+    function collect() {
+        let ok=0;
+        for (let r = 0; r < grid.length; r++) {
+            var innerArrayLength = grid[r].length;
+            for (let c = 0; c < innerArrayLength; c++) {
+                if(grid[r][c]==4){
+                  grid[r][c]=3;
+                  ok=1;
+                }
+            }
+        }
+        if(ok==1){
+            console.log('pokemon colectat');
+        }
+        else{
+            console.log('mai incearca');
+        }
+        
+        drawGrid();
 
     }
 
-    function collect(){
-
-    }
-
-    var jdex=0;
-    function procedure(){
+    var jdex = 0;
+    function procedure() {
         const parentId = document.getElementById('parent2');
         const childCount = parentId.childElementCount;
         const children = parentId.children;
         switchInstruction(children[jdex].id);
-        console.log('jdex: '+jdex+' id: '+children[jdex].id);
-
         jdex++;
-        if(jdex<childCount){
+        if (jdex < childCount) {
             setTimeout(procedure, 1000);
         }
-        else{
+        else {
             jdex = 0;
         }
     }
@@ -158,72 +241,76 @@ function canvasApp() {
 
     //#region EVENT HANDLING
 
-    function reset(){
-        const parent1 = document.getElementById('parent1');
-        while (parent1.firstChild) {
-            parent1.removeChild(parent1.lastChild);
-        }
-        const parent2 = document.getElementById('parent2');
-        while (parent2.firstChild) {
-            parent2.removeChild(parent2.lastChild);
-        }
-        charPosX = 6;
-        charPosY = 256;
-        index=0;
-        jdex=0;
-        drawScene();
-        
+    function reset() {
+        console.log('reset');
     }
 
-    function switchInstruction(instruction){
-        switch(instruction){
-            case 'up':
-                up();
+    function switchInstruction(instruction) {
+        switch (instruction) {
+            case 'forward':
+                forward();
                 break;
-            case 'down':
-                down();
-                break;
+            // case 'down':
+            //     down();
+            //     break;
             case 'left':
                 left();
                 break;
-            case 'right':
-                right();
-                break;
-            case 'collect':
+            // case 'proc':
+            //     right();
+            //     break;
+            case 'catch':
                 collect();
                 break;
-            case 'procedure':
-                procedure();
-                break;
+            // case 'procedure':
+            //     procedure();
+            //     break;
         }
     }
-
-    function executeInstructions(){
-        console.log('execution start');
-        const parentId = document.getElementById('parent1');
+    let idex = 0;
+    function executeInstructions() {
+        console.log('execution number = ' + idex);
+        const parentId = document.getElementById('main-area');
         const childCount = parentId.childElementCount;
-        // Get a collection of the 'parent' element's children:
-        const children = parentId.children;
-        switchInstruction(children[index].id);
-        index++;
-        if(index<childCount){
-            // take a break after executing an instruction
+        let command = parentId.children[idex].children[0].children[0].dataset.command;
+        console.log(command);
+        switchInstruction(command);
+
+        idex++;
+        if (idex < childCount) {
             setTimeout(executeInstructions, 1000);
+        }
+        else {
+            idex = 0;
         }
     }
 
     //#endregion
-    function level1(){
-        
-    // CHARACTER POSITION
-    charPosX = 16+128;
-    charPosY = 16+128;
-
-    // COIN POSITION
-    coinPosX = 16+64;
-    coinPosY = 16+64;
+    function level1() {
+        grid = [
+            [0, 1, 0, 1, 0, 0],
+            [1, 1, 0, 0, 1, 0],
+            [0, 0, 0, 2, 0, 0],
+            [0, 1, 0, 0, 0, 0],
+            [0, 0, 1, 1, 3, 0],
+            [0, 0, 0, 0, 0, 1]
+        ];
+        pokeUrl="../img/pikachu.svg";
+        drawScene();
 
     }
- 
-    drawScene();
+    function level2() {
+        grid = [
+            [0, 1, 0, 1, 0, 0],
+            [1, 2, 0, 0, 1, 0],
+            [0, 0, 0, 1, 0, 0],
+            [0, 1, 0, 3, 0, 0],
+            [0, 0, 1, 1, 0, 0],
+            [0, 0, 0, 0, 0, 1]
+        ];
+        pokeUrl="../img/rattata.svg";
+        drawScene();
+
+    }
+    level2();
 }

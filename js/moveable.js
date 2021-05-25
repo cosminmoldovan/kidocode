@@ -1,57 +1,38 @@
-document.addEventListener('DOMContentLoaded', (event) => {
-
-  var dragSrcEl = null;
+  
+  var dragElement = null;
   
   function handleDragStart(e) {
-    this.style.opacity = '0.4';
-    
-    dragSrcEl = this;
-
+    dragElement = this;
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', this.innerHTML);
   }
 
   function handleDragOver(e) {
+    if (e.stopPropagation) {
+      e.stopPropagation();
+    }
     if (e.preventDefault) {
       e.preventDefault();
     }
-
-    e.dataTransfer.dropEffect = 'move';
-    
+    e.dataTransfer.dropEffect = 'move'; 
     return false;
   }
 
   function handleDragEnter(e) {
-    this.classList.add('over');
   }
 
   function handleDragLeave(e) {
-    this.classList.remove('over');
   }
 
   function handleDrop(e) {
-    if (e.stopPropagation) {
-      e.stopPropagation(); // stops the browser from redirecting.
-    }
-    
-    if (dragSrcEl != this) {
-      dragSrcEl.innerHTML = this.innerHTML;
+    if (dragElement != this) {
+      dragElement.innerHTML = this.innerHTML;
       this.innerHTML = e.dataTransfer.getData('text/html');
     }
     
     return false;
   }
-
   function handleDragEnd(e) {
-    this.style.opacity = '1';
-    const lineNumber = document.getElementsByClassName("line-number");
-    for (i = 0; i < lineNumber.length; i++) {
-        lineNumber[i].innerHTML=i;
-        // '<span style="margin-left:8px;">≔</span>';
-    }
-    items.forEach(function (item) {
-      item.classList.remove('over');
-    });
   }
   
   
@@ -64,4 +45,4 @@ document.addEventListener('DOMContentLoaded', (event) => {
     item.addEventListener('drop', handleDrop, false);
     item.addEventListener('dragend', handleDragEnd, false);
   });
-});
+

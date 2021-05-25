@@ -9,7 +9,7 @@
     </filter>
   </defs>
   <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Rectangle_59)">
-    <g id="Rectangle_59-2" data-name="Rectangle 59" fill="#fafafa" stroke="#bdbdbd" stroke-width="1">
+    <g id="Rectangle_59-2" data-name="Rectangle 59" fill="#ffffff" stroke="#bdbdbd" stroke-width="1">
       <rect width="72" height="72" rx="8" stroke="none"/>
       <rect x="0.5" y="0.5" width="71" height="71" rx="7.5" fill="none"/>
     </g>
