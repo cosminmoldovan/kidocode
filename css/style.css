@@ -101,23 +101,18 @@ nav {
   justify-content: space-between;
   padding: 0 8%;
   height: 56px;
-  /* border-bottom: 2px solid #962BB9; */
-  background-color: #B933E1;
-    /* background-image: linear-gradient(to right, #B933E1, #c358e4); */
-    /* background-color: white;
-    border-bottom: 1px solid #DBDBDB; */
+  background-color: white;
+  border-bottom: 1px solid #DBDBDB;
 
 }
 .logo{
   padding: 6px;
   text-transform: uppercase;
   /* border: 2px solid #712290; */
-  color: rgb(255, 255, 255);
+  color: var(--darkpurple);
   font-size: 14px;
   font-weight: bold;
   border-radius: 4px;
-  /* background-image: linear-gradient(to right, #53FEBE, #00B3F5); */
-  background-color: #962BB9;
   letter-spacing: 2px;
   
 }
