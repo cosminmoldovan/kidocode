@@ -3,44 +3,56 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Kidocode</title>
+    <title>PokeCode</title>
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
 <body>
-    <nav>
-        <div class="logo">pokecode</div>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="img/flash_on_black_24dp.svg">
+                pokecode
+            </div>
 
-        <div class="status">
-            <div class="level"><img src="img/local_police-black-36dp.svg">&nbsp;<span class="nrlevel">4&nbsp;</span></div>
-            <div class="poke"><img src="img/pokeb.svg"><span class="nrpokemons">12</span></div>
+            <div class="menu">
+                <div class="help-icon"><img src="img/help_outline_black_24dp.svg">help</div>
+                <div class="settings-icon"><img src="img/settings_black_24dp.svg">settings</div>
+                <div class="settings-icon"><img src="img/account_circle_black_24dp.svg">login</div>
+                <div class="status">
+                    <div class="xp"><img src="img/whatshot_black_36dp.svg"><span class="nrxp">240</span></div>
+                    <div class="poke"><img src="img/catching_pokemon_black_36dp.svg"><span class="nrpokemons">12</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="progress-indicator">
+            <div class="level level-active"><span>1</span></div>
+            <div class="level level-active"><span>2</span></div>
+            <div class="level level-active"><span>3</span></div>
+            <div class="level level-active"><span>4</span></div>
+            <div class="level level-active"><span>5</span></div>
+            <div class="level"><span>6</span></div>
+            <div class="level"><span>7</span></div>
+            <div class="level"><span>8</span></div>
+            <div class="level"><span>9</span></div>
+            <div class="level"><span>10</span></div>
+            <div class="level"></div>
         </div>
-        <div class="menu">
-            <div class="help-icon"><img src="img/help.svg">help</div>
-            <div class="settings-icon"><img src="img/settings.svg">settings</div>
-            <div class="settings-icon"><img src="img/account.svg">login</div>
-        </div>
-       
-    </nav>
+    </header>
     <main>
         <section class="play-section">
             <div id="btnContainer">
                 <button class="reset actionbtn hover" id="reset"><img src="img/replay.svg"><span>reset</span></button>
-                
+
                 <button class="run actionbtn hover" id="run"><img src="img/play-arrow.svg"><span>run</span></button>
-            </div>
-            <div style="display:none;">
-                <img id="tile" src="img/tile.svg">
-                <img id="robot" src="img/up-arrow.svg">
-                <img id="bitcoin" src="img/pikachu.svg">
             </div>
             <div id="canvasContainer">
                 <canvas id="canvas">
                     Your browser does not support HTML5 Canvas!
                 </canvas>
             </div>
+
         </section>
 
         <section id="codeSection">
@@ -49,7 +61,7 @@
                     <button class="tablinks active" onclick="switchParent(event, 'parent1')">main</button>
                     <button class="tablinks" onclick="switchParent(event, 'parent2')">procedure</button>
                 </div>
-   
+
                 <div class="code-area tabcontent parent" id="parent1" style="display: flex;">
                     <ul class="list-number">
                         <li>1</li>
@@ -67,7 +79,7 @@
                             <div class="delete-line" onclick="emptyLine(this)">x</div>
                         </div>
                         <div class="code-line" draggable="true">
-                            <div class="line-content droppable" ></div>
+                            <div class="line-content droppable"></div>
                             <div class="delete-line" onclick="emptyLine(this)">x</div>
                         </div>
                         <div class="code-line" draggable="true">
@@ -90,10 +102,11 @@
                     <span>turn</span>
                 </div>
                 <div id="catch" class="catch code-block draggable" data-command="catch" draggable="true">
+                    <!-- <img src="img/catching_pokemon_black_18dp.svg">&nbsp; -->
                     <span>catch</span>
                 </div>
                 <div id="proc" class="proc code-block draggable" data-command="proc" draggable="true">
-                    <span>procedure</span>
+                    <span>procedure {}</span>
                 </div>
                 <div id="ifwall" class="ifwall code-block draggable" data-command="ifwall" draggable="true">
                     <span>if wall</span>
@@ -114,10 +127,11 @@
                 </div>
             </div>
         </section>
-
-
-
     </main>
+    <footer>
+
+    </footer>
+
     <script src="js/main.js"></script>
     <script src="js/moveable.js"></script>
     <script src="js/drag-and-drop.js"></script>
@@ -133,7 +147,7 @@
         // wipers.forEach(function (item) {
         //     item.addEventListener('click', function () {
         //         // emptyLine(this);
-                
+
         //         let previousSibling = this.previousElementSibling;
         //         previousSibling.removeChild(previousSibling.childNodes[0]);
         //         previousSibling.classList.add('droppable');
