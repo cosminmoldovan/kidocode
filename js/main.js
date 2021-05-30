@@ -1,3 +1,6 @@
+import { square, createMatrix } from './modules/functions.js';
+import { makeDroppable } from './modules/drag-and-drop.js';
+import * as generates from './modules/generate.js';
 window.addEventListener("load", eventWindowLoaded, false);
 function eventWindowLoaded() {
     canvasApp();
@@ -35,67 +38,15 @@ function canvasApp() {
     let context = canvas.getContext("2d");
 
     //#endregion
+    //#region GENERATE HTML COMPONENTS
 
-   //#region PROGRESS INDICATOR
-    const progress = document.getElementById("progress");
-    const circles = document.querySelectorAll(".circle");
-
-    let currentValue = 1;
-
-    function update() {
-        circles.forEach((circle, index) => {
-            if (index < currentValue) {
-                circle.classList.add("active");
-            }
-            else {
-                circle.classList.remove("active");
-            }
-        });
-
-        const actives = document.querySelectorAll(".active");
-        progress.style.width = ((actives.length - 1) / (circles.length - 1)) * 100 + '%';
-
-        if (currentValue === circles.length) {
-            next.disabled = true;
-        }
-        else if (currentValue <= 1) {
-            prev.disabled = true;
-        }
-        else {
-            next.disabled = false;
-            prev.disabled = false;
-        }
-    }
+    //#endregion
+    //#region PROGRESS INDICATOR
     //#endregion
 
     //#region DRAW FUNCTIONS
-
-    function drawRect(x, y) {
-
-        var rectX = x;
-        var rectY = y;
-        var rectWidth = 70;
-        var rectHeight = 70;
-        var lineWidth = 1;
-
-        context.strokeStyle = "#C1C1C1";
-        context.fillStyle = "#FFFFFF";
-        context.rect(rectX, rectY, rectWidth, rectHeight);
-        context.fill();
-        context.lineWidth = lineWidth;
-        context.stroke();
-
-    }
-    function createMatrix(numRows, numColumns) {
-        let array = new Array(numRows);
-        for (let i = 0; i < numColumns; i++) {
-            array[i] = new Array(numColumns);
-        }
-
-        return array;
-    }
     function drawGrid() {
-        console.table(grid);
+        // console.table(grid);
         // loop the outer array
         // r for row, c for column
         for (let r = 0; r < grid.length; r++) {
@@ -103,8 +54,11 @@ function canvasApp() {
             var innerArrayLength = grid[r].length;
             // loop the inner array
             for (let c = 0; c < innerArrayLength; c++) {
-                let item = grid[r][c];
-                switch (item) {
+                let gridElement = grid[r][c];
+                switch (gridElement) {
+                    case 0:
+                        drawImage("../img/tile.svg", c * xUnit, r * yUnit);
+                        break;
                     case 1:
                         drawImage("../img/wall.svg", c * xUnit, r * yUnit);
                         break;
@@ -114,12 +68,12 @@ function canvasApp() {
                         break;
                     case 3:
                         drawImage("../img/tile.svg", c * xUnit, r * yUnit);
-                        drawImage("../img/up-arrow.svg", c * xUnit + padding, r * yUnit + padding);
+                        drawImage("../img/nav-arrow.svg", c * xUnit + padding, r * yUnit + padding);
                         break;
                     case 4:
                         drawImage("../img/tile.svg", c * xUnit, r * yUnit);
                         drawImage(pokeUrl, c * xUnit + padding, r * yUnit + padding);
-                        drawImage("../img/up-arrow.svg", c * xUnit + padding, r * yUnit + padding);
+                        drawImage("../img/nav-arrow.svg", c * xUnit + padding, r * yUnit + padding);
                         break;
                     default:
                         drawImage("../img/tile.svg", c * xUnit, r * yUnit);
@@ -149,10 +103,10 @@ function canvasApp() {
     //#region ACTION BUTTONS
 
     const runBtn = document.getElementById('run');
-    runBtn.addEventListener('click', executeInstructions);
+    runBtn.addEventListener('click', runMainFunction);
 
     const resetBtn = document.getElementById('reset');
-    resetBtn.addEventListener('click', reset);
+    resetBtn.addEventListener('click', level2);
 
     //#endregion
 
@@ -253,22 +207,6 @@ function canvasApp() {
         drawGrid();
 
     }
-
-    var jdex = 0;
-    function procedure() {
-        const parentId = document.getElementById('parent2');
-        const childCount = parentId.childElementCount;
-        const children = parentId.children;
-        switchInstruction(children[jdex].id);
-        jdex++;
-        if (jdex < childCount) {
-            setTimeout(procedure, 1000);
-        }
-        else {
-            jdex = 0;
-        }
-    }
-
     //#endregion
 
     //#region EVENT HANDLING
@@ -277,7 +215,7 @@ function canvasApp() {
         console.log('reset');
     }
 
-    function switchInstruction(instruction) {
+    function executeInstruction(instruction) {
         switch (instruction) {
             case 'forward':
                 forward();
@@ -300,22 +238,22 @@ function canvasApp() {
         }
     }
     let idex = 0;
-    function executeInstructions() {
-        console.log('execution number = ' + idex);
-        const parentId = document.getElementById('main-area');
-        const childCount = parentId.childElementCount;
-        let command = parentId.children[idex].children[0].children[0].dataset.command;
-        console.log(command);
-        switchInstruction(command);
 
-        idex++;
-        if (idex < childCount) {
-            setTimeout(executeInstructions, 1000);
+    function runMainFunction() {
+        const mainCodeContainer = document.getElementById('main-code-container');
+        const numberOfLines = mainCodeContainer.childElementCount;
+        let instruction;
+        let codeBlock = mainCodeContainer.children[idex].children[0].children[0];
+        if (codeBlock) {
+            instruction = codeBlock.dataset.instruction;
         }
-        else {
-            idex = 0;
+        executeInstruction(instruction);
+        idex++;
+        if (idex < numberOfLines) {
+            setTimeout(runMainFunction, 1000);
         }
     }
+
 
     //#endregion
     function level1() {
@@ -328,7 +266,11 @@ function canvasApp() {
             [0, 0, 0, 0, 0, 1]
         ];
         pokeUrl = "../img/pikachu.svg";
+        const numberOfLines = 4;
         drawScene();
+        generates.codeLines('parent1', 'main-code-container',numberOfLines);
+        generates.codeLines('parent2', 'main-code-container',2);
+
 
     }
     function level2() {
@@ -341,8 +283,13 @@ function canvasApp() {
             [0, 0, 0, 0, 0, 1]
         ];
         pokeUrl = "../img/rattata.svg";
+        const numberOfLines = 7;
         drawScene();
+        generates.codeLines('parent1', 'main-code-container',numberOfLines);
+        generates.codeLines('parent2', 'main-code-container',4);
+        makeDroppable();
 
     }
     level1();
+    makeDroppable();
 }

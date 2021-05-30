@@ -1,32 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>PokeCode</title>
     <link rel="stylesheet" href="css/style.css" />
 </head>
-
 <body>
     <header>
         <nav>
             <div class="logo">
-                <img src="img/flash_on_black_24dp.svg">
+                <img src="img/flash.svg">
                 pokecode
             </div>
 
             <div class="menu">
-                <div class="help-icon"><img src="img/help_outline_black_24dp.svg">help</div>
-                <div class="settings-icon"><img src="img/settings_black_24dp.svg">settings</div>
-                <div class="settings-icon"><img src="img/account_circle_black_24dp.svg">login</div>
+                <div class="menu-btn"><img src="img/help.svg">help</div>
+                <div class="menu-btn"><img src="img/settings.svg">settings</div>
+                <div class="menu-btn"><img src="img/account.svg">login</div>
                 <div class="status">
-                    <div class="xp"><img src="img/whatshot_black_36dp.svg"><span class="nrxp">240</span></div>
-                    <div class="poke"><img src="img/catching_pokemon_black_36dp.svg"><span class="nrpokemons">12</span>
+                    <div class="status-btn xp"><img src="img/flame.svg"><span class="nrxp">240</span></div>
+                    <div class="status-btn poke"><img src="img/pokeball.svg"><span class="nrpokemons">12</span>
                     </div>
                 </div>
             </div>
         </nav>
-        <div class="progress-indicator">
+        <div class="level-progress-indicator">
             <div class="level level-active"><span>1</span></div>
             <div class="level level-active"><span>2</span></div>
             <div class="level level-active"><span>3</span></div>
@@ -55,7 +53,7 @@
 
         </section>
 
-        <section id="codeSection">
+        <section id="code-section">
             <div id="zone">
                 <div class="tabs">
                     <button class="tablinks active" onclick="switchParent(event, 'parent1')">main</button>
@@ -63,96 +61,46 @@
                 </div>
 
                 <div class="code-area tabcontent parent" id="parent1" style="display: flex;">
-                    <ul class="list-number">
-                        <li>1</li>
-                        <li>2</li>
-                        <li>3</li>
-                        <li>4</li>
-                    </ul>
-                    <div id="main-area" class="code-zone main-area">
-                        <div class="code-line" draggable="true">
-                            <div class="line-content droppable"></div>
-                            <div class="delete-line" onclick="emptyLine(this)">x</div>
-                        </div>
-                        <div class="code-line" draggable="true">
-                            <div class="line-content droppable"></div>
-                            <div class="delete-line" onclick="emptyLine(this)">x</div>
-                        </div>
-                        <div class="code-line" draggable="true">
-                            <div class="line-content droppable"></div>
-                            <div class="delete-line" onclick="emptyLine(this)">x</div>
-                        </div>
-                        <div class="code-line" draggable="true">
-                            <div class="line-content droppable"></div>
-                            <div class="delete-line" onclick="emptyLine(this)">x</div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="code-area tabcontent" id="parent2">
-                    <div class="code-zone procedure-area">
-                    </div>
                 </div>
             </div>
             <div class="code-blocks-container">
-                <div id="forward" class="forward code-block draggable" data-command="forward" draggable="true">
-                    <span>move forward</span>
+                <div id="forward" class="forward code-block draggable" data-instruction="forward" draggable="true">
+                    <span>move up</span>
                 </div>
-                <div id="turn" class="turn code-block draggable" data-command="left" draggable="true">
-                    <span>turn</span>
+                <div id="turn" class="turn code-block draggable" data-instruction="left" draggable="true">
+                    <span>move left</span>
                 </div>
-                <div id="catch" class="catch code-block draggable" data-command="catch" draggable="true">
-                    <!-- <img src="img/catching_pokemon_black_18dp.svg">&nbsp; -->
+                <div id="catch" class="catch code-block draggable" data-instruction="catch" draggable="true">
                     <span>catch</span>
                 </div>
-                <div id="proc" class="proc code-block draggable" data-command="proc" draggable="true">
+                <div id="proc" class="proc code-block draggable" data-instruction="proc" draggable="true">
                     <span>procedure {}</span>
                 </div>
-                <div id="ifwall" class="ifwall code-block draggable" data-command="ifwall" draggable="true">
+                <div id="ifwall" class="if code-block draggable" data-instruction="ifwall" draggable="true">
                     <span>if wall</span>
                 </div>
-                <div id="else" class="else code-block draggable" data-command="else" draggable="true">
+                <div id="else" class="if code-block draggable" data-instruction="else" draggable="true">
                     <span>else</span>
                 </div>
-                <div id="endif" class="ifwall code-block draggable" data-command="endif" draggable="true">
+                <div id="endif" class="if code-block draggable" data-instruction="endif" draggable="true">
                     <span>END if</span>
                 </div>
-                <div id="repeat" class="repeat code-block draggable" data-command="repeat" draggable="true">
+                <div id="repeat" class="repeat code-block draggable" data-instruction="repeat" draggable="true">
                     <div>repeat</div>
                     <div class="nrit" onclick="increaseValue(this)">1</div>
-
                 </div>
-                <div id="endrepeat" class="repeat code-block draggable" data-command="endrepeat" draggable="true">
+                <div id="endrepeat" class="repeat code-block draggable" data-instruction="endrepeat" draggable="true">
                     <span>END repeat</span>
                 </div>
             </div>
         </section>
     </main>
     <footer>
-
     </footer>
-
-    <script src="js/main.js"></script>
-    <script src="js/moveable.js"></script>
-    <script src="js/drag-and-drop.js"></script>
     <script>
-
-        function emptyLine(elem) {
-            const previousSibling = elem.previousElementSibling;
-            previousSibling.removeChild(previousSibling.childNodes[0]);
-            previousSibling.classList.add('droppable');
-        }
-
-        // const wipers = document.querySelectorAll('.delete-line');
-        // wipers.forEach(function (item) {
-        //     item.addEventListener('click', function () {
-        //         // emptyLine(this);
-
-        //         let previousSibling = this.previousElementSibling;
-        //         previousSibling.removeChild(previousSibling.childNodes[0]);
-        //         previousSibling.classList.add('droppable');
-        //     });
-        // });
         function increaseValue(item) {
             let value = Number(item.innerHTML);
             if (value < 5) {
@@ -164,9 +112,6 @@
                 value = 1;
                 item.innerHTML = value;
             }
-
-
-
         }
 
     </script>
@@ -188,6 +133,7 @@
         }
 
     </script>
+    <script type="module" src="js/main.js"></script>
 </body>
 
 </html>

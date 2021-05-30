@@ -1,3 +1,4 @@
+/* TYPOGRAPHY */
 @font-face {
   font-family: 'gotham';
   src: url(../fonts/GothamRounded-Medium.otf);
@@ -10,7 +11,7 @@
   font-style: bold;
   font-weight: 700;
 }
-
+/* GENERAL STYLES */
 * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -20,27 +21,34 @@
   -webkit-user-select: none;
   /* Chrome all / Safari all */
   -moz-user-select: none;
-     /* Firefox all */
+  /* Firefox all */
   -ms-user-select: none;
-      /* IE 10+ */
+  /* IE 10+ */
   user-select: none;
-          /* Likely future */;
+  /* Likely future */;
 }
 :root{
-  --green:#3FE1B0;
-  --darkgreen:#2BC4A2;
-  --blue:#00B3F5;
-  --darkblue:#0290EE;
-  --purple:#D64CF1;
-  --darkpurple:#B933E1;
-  --red:#FF505F;
-  --darkred:#E02950;
+  --green:#3fe1b0;
+  --lightgreen:#e3fff3;
+  --darkgreen:#2bc4a2;
+  --blue:#00b3f5;
+  --lightblue:#ebfcff;
+  --darkblue:#0290ee;
+  --purple:#d64cf1;
+  --lightpurple:#f7e3ff;
+  --darkpurple:#b933e1;
+  --red:#ff505f;
+  --lightred:#ffe0e8;
+  --darkred:#e02950;
+  --flamingo:#ff848c;
   --yellow:#FFBD4F;
   --darkyellow:#FFA537;
   --orange:#FE8A4F;
-  --darkorange:#FF7139;
-  --violet: #AC71FF;
-  --darkviolet: #9059FF;
+  --lightorange:#fff4de;
+  --darkorange:#ff7139;
+  --violet: #ac71ff;
+  --lightviolet: #e6dfff;
+  --darkviolet: #9059ff;
 
   --white:#ffffff;
   --gray50:#fafafa;
@@ -57,6 +65,7 @@
 body {
   background-color: var(--gray50); 
   font-family: gotham, Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
   font-weight: normal;
   letter-spacing: 1px;
 }
@@ -83,20 +92,19 @@ button:focus {
   -webkit-filter: brightness(1.1);
   filter: brightness(1.1);
 }
+/* HEADER AND MAIN NAVIGATION*/
 header{
   width: 100%;
   background-color: var(--white);
 }
 nav {
   width: 100%;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 8%;
-  height: 56px;
   background-color: var(--white);
-  /* border-bottom: 1px solid #DBDBDB; */
-
+  padding: 0 8%;
 }
 /*PRPGRESS INDICATOR*/
 footer{
@@ -104,7 +112,7 @@ footer{
   position: absolute;
   bottom: 16px;
 }
-.progress-indicator{
+.level-progress-indicator{
   width: 100%;
   display: flex;
   margin-top: 8px;
@@ -146,7 +154,6 @@ background-color: var(--green);
 .logo{
   display: flex;
   align-items: center;
-  padding: 6px;
   text-transform: uppercase;
   color: var(--gray700);
   font-size: 14px;
@@ -178,8 +185,7 @@ background-color: var(--green);
   display: flex;
   gap: 32px;
 }
-.settings-icon, .help-icon{
-  /* height: 32px; */
+.menu-btn{
   display: flex;
   align-items: center;
   padding: 0 8px;
@@ -192,13 +198,8 @@ background-color: var(--green);
   opacity: 0.6;
   transition: 0.3s;
 }
-.settings-icon:hover, .help-icon:hover{
+.menu-btn:hover{
   opacity: 1;
-}
-.settings-icon:active, .help-icon:active{
-  /* background-color:#fafafa; */
-  opacity: 1;
-
 }
 .xp{
   cursor: pointer;
@@ -253,18 +254,13 @@ main {
   justify-content: space-between;
   margin-bottom: 32px;
 }
-#canvasContainer {
- 
-}
-
-#codeSection {
+#code-section {
   display: flex;
 }
 #zone{
   width: 350px;
   
 }
-
 .code-blocks-container{
   display: flex;
   flex-direction: column;
@@ -311,39 +307,33 @@ main {
 .repeat{
   color:  var(--darkpurple);
   border-color: var(--darkpurple);
-  background-color: #F7E3FF;
+  background-color: var(--lightpurple);
 }
 .forward{
   color: var(--darkblue);
   border-color: var(--darkblue);
-  background-color: #EBFCFF;
+  background-color: var(--lightblue);
 }
 .catch{
   color: var(--red);
   border-color: var(--red);
-  background-color: #FFE0E8;
+  background-color: var(--lightred);
 }
 .turn{
   color: var(--darkgreen);
   border-color: var(--darkgreen);
-  background-color: #E3FFF3;
+  background-color: var(--lightgreen);
 }
 .proc{
   color: var(--darkviolet);
   border-color: var(--darkviolet);
-  background-color: #E6DFFF;
+  background-color: var(--lightviolet);
 }
-.ifwall{
+.if{
   color: var(--darkorange);
   border-color: var(--darkorange);
-  background-color: #FFF4DE;
+  background-color: var(--lightorange);
 }
-.else{
-  color: var(--darkorange);
-  border-color: var(--darkorange);
-  background-color: #FFF4DE;
-}
-
 .nrit{
   cursor: pointer;
   display: flex;
@@ -411,14 +401,14 @@ width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--lightred);
+  color: var(--flamingo);
   font-weight: bold;
   font-size: 20px;
   padding:0 8px;
   opacity: 0;
 }
 .delete-line:hover{
-  color: var(--red);
+  color:var(--red);
 }
 .delete-line:active{
   transform: scale(1.2);
