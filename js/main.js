@@ -1,5 +1,6 @@
 import { square, createMatrix } from './modules/functions.js';
 import { makeDroppable } from './modules/drag-and-drop.js';
+import { drawGrid } from './modules/draw.js';
 import * as generates from './modules/generate.js';
 window.addEventListener("load", eventWindowLoaded, false);
 function eventWindowLoaded() {
@@ -45,57 +46,9 @@ function canvasApp() {
     //#endregion
 
     //#region DRAW FUNCTIONS
-    function drawGrid() {
-        // console.table(grid);
-        // loop the outer array
-        // r for row, c for column
-        for (let r = 0; r < grid.length; r++) {
-            // get the size of the inner array
-            var innerArrayLength = grid[r].length;
-            // loop the inner array
-            for (let c = 0; c < innerArrayLength; c++) {
-                let gridElement = grid[r][c];
-                switch (gridElement) {
-                    case 0:
-                        drawImage("../img/tile.svg", c * xUnit, r * yUnit);
-                        break;
-                    case 1:
-                        drawImage("../img/wall.svg", c * xUnit, r * yUnit);
-                        break;
-                    case 2:
-                        drawImage("../img/tile.svg", c * xUnit, r * yUnit);
-                        drawImage(pokeUrl, c * xUnit + padding, r * yUnit + padding);
-                        break;
-                    case 3:
-                        drawImage("../img/tile.svg", c * xUnit, r * yUnit);
-                        drawImage("../img/nav-arrow.svg", c * xUnit + padding, r * yUnit + padding);
-                        break;
-                    case 4:
-                        drawImage("../img/tile.svg", c * xUnit, r * yUnit);
-                        drawImage(pokeUrl, c * xUnit + padding, r * yUnit + padding);
-                        drawImage("../img/nav-arrow.svg", c * xUnit + padding, r * yUnit + padding);
-                        break;
-                    default:
-                        drawImage("../img/tile.svg", c * xUnit, r * yUnit);
-                }
-            }
-        }
-    }
-    function drawImage(url, x, y) {
-        // Create an image object. This is not attached to the DOM and is not part of the page.
-        var image = new Image();
-        // When the image has loaded, draw it to the canvas
-        image.onload = function () {
-            // draw image...
-            context.drawImage(image, x, y);
-        }
-
-        // Now set the source of the image that we want to load
-        image.src = url;
-    }
     function drawScene() {
         context.clearRect(0, 0, canvasWidth, canvasHeight);
-        drawGrid();
+        drawGrid(context,grid, pokeUrl);
     }
 
     //#endregion
@@ -146,7 +99,7 @@ function canvasApp() {
                 }
             }
         }
-        drawGrid();
+        drawGrid(context,grid, pokeUrl);
 
     }
 
@@ -182,7 +135,7 @@ function canvasApp() {
                 }
             }
         }
-        drawGrid();
+        drawGrid(context,grid, pokeUrl);
 
     }
 
@@ -204,7 +157,7 @@ function canvasApp() {
             console.log('mai incearca');
         }
 
-        drawGrid();
+        drawGrid(context,grid, pokeUrl);
 
     }
     //#endregion
