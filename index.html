@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>PokeCode</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="styles/style.css" />
 </head>
+
 <body>
     <header>
         <nav>
             <div class="logo">
-                <img src="img/flash.svg">
+                <img src="images/flash.svg">
                 pokecode
             </div>
 
             <div class="menu">
-                <div class="menu-btn"><img src="img/help.svg">help</div>
-                <div class="menu-btn"><img src="img/settings.svg">settings</div>
-                <div class="menu-btn"><img src="img/account.svg">login</div>
+                <div class="menu-btn"><img src="images/help.svg">help</div>
+                <div class="menu-btn"><img src="images/settings.svg">settings</div>
+                <div class="menu-btn"><img src="images/account.svg">login</div>
                 <div class="status">
-                    <div class="status-btn xp"><img src="img/flame.svg"><span class="nrxp">240</span></div>
-                    <div class="status-btn poke"><img src="img/pokeball.svg"><span class="nrpokemons">12</span>
+                    <div class="status-btn xp"><img src="images/flame.svg"><span class="nrxp">240</span></div>
+                    <div class="status-btn poke"><img src="images/pokeball.svg"><span class="nrpokemons">12</span>
                     </div>
                 </div>
             </div>
@@ -41,9 +43,9 @@
     <main>
         <section class="play-section">
             <div id="btnContainer">
-                <button class="reset actionbtn hover" id="reset"><img src="img/replay.svg"><span>reset</span></button>
+                <button class="reset actionbtn hover" id="reset"><img src="images/replay.svg"><span>reset</span></button>
 
-                <button class="run actionbtn hover" id="run"><img src="img/play-arrow.svg"><span>run</span></button>
+                <button class="run actionbtn hover" id="run"><img src="images/play-arrow.svg"><span>run</span></button>
             </div>
             <div id="canvasContainer">
                 <canvas id="canvas">
@@ -67,32 +69,45 @@
                 </div>
             </div>
             <div class="code-blocks-container">
-                <div id="forward" class="forward code-block draggable" data-instruction="forward" draggable="true">
-                    <span>move up</span>
+                <div class="forward code-block draggable" data-instruction="forward" draggable="true">
+                    <span>move forward</span>
                 </div>
-                <div id="turn" class="turn code-block draggable" data-instruction="left" draggable="true">
-                    <span>move left</span>
+                <div class="turnleft code-block draggable" data-instruction="left" draggable="true">
+                    <span>turn&nbsp;</span>
+                    <div class="turn-menu" onclick="displayMenu(this)">
+                        <div class="turn-value">left</div>
+                        <div class="dropdown-arrow">
+                            <image src="images/dropdown-arrow.svg"></image>
+                        </div>
+                    </div>
+                    <div class="turn-options-menu">
+                        <div class="turn-option" onclick="selectedOption(this)">left</div>
+                        <div class="turn-option" onclick="selectedOption(this)">right</div>
+                    </div>
                 </div>
-                <div id="catch" class="catch code-block draggable" data-instruction="catch" draggable="true">
+                <!-- <div id="turnright" class="turnright code-block draggable" data-instruction="left" draggable="true">
+                    <span>turn right</span>   
+                </div> -->
+                <div class="catch code-block draggable" data-instruction="catch" draggable="true">
                     <span>catch</span>
                 </div>
-                <div id="proc" class="proc code-block draggable" data-instruction="proc" draggable="true">
+                <div class="proc code-block draggable" data-instruction="proc" draggable="true">
                     <span>procedure {}</span>
                 </div>
-                <div id="ifwall" class="if code-block draggable" data-instruction="ifwall" draggable="true">
+                <div class="if code-block draggable" data-instruction="ifwall" draggable="true">
                     <span>if wall</span>
                 </div>
-                <div id="else" class="if code-block draggable" data-instruction="else" draggable="true">
+                <div class="if code-block draggable" data-instruction="else" draggable="true">
                     <span>else</span>
                 </div>
-                <div id="endif" class="if code-block draggable" data-instruction="endif" draggable="true">
+                <div class="if code-block draggable" data-instruction="endif" draggable="true">
                     <span>END if</span>
                 </div>
-                <div id="repeat" class="repeat code-block draggable" data-instruction="repeat" draggable="true">
+                <div class="repeat code-block draggable" data-instruction="repeat" draggable="true">
                     <div>repeat</div>
                     <div class="nrit" onclick="increaseValue(this)">1</div>
                 </div>
-                <div id="endrepeat" class="repeat code-block draggable" data-instruction="endrepeat" draggable="true">
+                <div class="repeat code-block draggable" data-instruction="endrepeat" draggable="true">
                     <span>END repeat</span>
                 </div>
             </div>
@@ -100,40 +115,8 @@
     </main>
     <footer>
     </footer>
-    <script>
-        function increaseValue(item) {
-            let value = Number(item.innerHTML);
-            if (value < 5) {
-                value++;
-                item.innerHTML = value;
-
-            }
-            if (value >= 5) {
-                value = 1;
-                item.innerHTML = value;
-            }
-        }
-
-    </script>
-    <script>
-        function switchParent(evt, idParent) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-                tabcontent[i].classList.remove('parent');
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(idParent).style.display = "flex";
-            document.getElementById(idParent).className += " parent";
-            evt.currentTarget.className += " active";
-        }
-
-    </script>
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="scripts/main.js"></script>
+    <script src="scripts/utilities.js"></script>
 </body>
 
 </html>

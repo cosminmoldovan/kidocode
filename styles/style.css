@@ -42,6 +42,7 @@
   --darkred:#e02950;
   --flamingo:#ff848c;
   --yellow:#FFBD4F;
+  --lightyellow:#ffffddcc;
   --darkyellow:#FFA537;
   --orange:#FE8A4F;
   --lightorange:#fff4de;
@@ -319,10 +320,15 @@ main {
   border-color: var(--red);
   background-color: var(--lightred);
 }
-.turn{
+.turnleft{
   color: var(--darkgreen);
   border-color: var(--darkgreen);
   background-color: var(--lightgreen);
+}
+.turnright{
+  color: var(--darkyellow);
+  border-color: var(--darkyellow);
+  background-color: var(--lightyellow);
 }
 .proc{
   color: var(--darkviolet);
@@ -346,6 +352,40 @@ main {
   margin-left: 8px;
   border-radius: 10px;
   font-weight: bold;
+}
+.turn-menu{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0 8px 0 8px;
+  background-color: var(--white);
+  border: 1px solid var(--darkgreen);
+  border-radius: 4px;
+}
+.turn-value{
+  width: 38px;
+}
+.turn-options-menu{
+  display: none;
+  flex-direction: column;
+  position: relative;
+  top: 35px;
+  left: -73px;
+  background-color: var(--white);
+  border: 2px solid var(--darkgreen);
+  border-radius: 4px;
+  z-index: 99;
+  box-shadow: 0px 0px 6px var(--gray600);
+  transition: 0.3 ease-in;
+}
+.turn-option{
+  cursor: pointer;
+  width: 70px;
+  padding: 4px 0 4px 8px;
+  border-radius: 3px;
+}
+.turn-option:hover{
+  background-color: var(--lightgreen);
 }
 .code-area{
   width: 100%;

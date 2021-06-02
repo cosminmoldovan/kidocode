@@ -8,7 +8,7 @@ draggableElements.forEach(function (item) {
 
 function dragstart_handler(ev) {
     console.log("dragStart");
-    ev.dataTransfer.setData("text", ev.target.id);
+    ev.dataTransfer.setData("text", ev.target.dataset.instruction);
     ev.dataTransfer.effectAllowed = 'copyMove';
 }
 
@@ -47,11 +47,10 @@ export function makeDroppable(){
         ev.preventDefault();
         const dropZone = ev.target;
         dropZone.classList.remove("dashed-border");
-        var id = ev.dataTransfer.getData("text");
-        var draggedElement = document.getElementById(id);
+        var instruction = ev.dataTransfer.getData("text");
+        var draggedElement = document.querySelector("[data-instruction = "+instruction);
         if (draggedElement.classList.contains('draggable') && dropZone.classList.contains('droppable')) {
             var nodeCopy = draggedElement.cloneNode(true);
-            nodeCopy.id = "newId" + Date.now();
             nodeCopy.classList.remove("draggable");
             nodeCopy.setAttribute('draggable', false);
             dropZone.appendChild(nodeCopy);
