@@ -1,1 +1,2 @@
-# kidocode
+# <p align="center"><img src="./images/kidocode-logo.svg" height="52"/></p><p align="center"><sup>Educational Coding Game for Kids</sup><p>
+<p align="center"><img src="./images/kidocode-thumbnail.png" width="80%"/></p>
