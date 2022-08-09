@@ -1,12 +1,12 @@
 var imgs = [];
 var imgUrls = [
-"../images/tile.svg",
-"../images/wall.svg",
-"../images/nav-arrow-forward.svg",
-"../images/nav-arrow-right.svg",
-"../images/nav-arrow-backward.svg",
-"../images/nav-arrow-left.svg",
-"../images/big-pokeball.svg",
+"./images/tile.svg",
+"./images/wall.svg",
+"./images/nav-arrow-forward.svg",
+"./images/nav-arrow-right.svg",
+"./images/nav-arrow-backward.svg",
+"./images/nav-arrow-left.svg",
+"./images/big-pokeball.svg",
 ];
 for (let i=0;i<imgUrls.length;i++) {
     imgs.push(new Image());
