@@ -1,0 +1,18 @@
+<svg id="Component_1_1" data-name="Component 1 – 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="72" height="76" viewBox="0 0 72 76">
+  <defs>
+    <filter id="Rectangle_59" x="0" y="0" width="72" height="76" filterUnits="userSpaceOnUse">
+      <feOffset dy="4" input="SourceAlpha"/>
+      <feGaussianBlur result="blur"/>
+      <feFlood flood-color="#bdbdbd"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Rectangle_59)">
+    <g id="Rectangle_59-2" data-name="Rectangle 59" fill="#fff" stroke="#bdbdbd" stroke-width="1">
+      <rect width="72" height="72" rx="8" stroke="none"/>
+      <rect x="0.5" y="0.5" width="71" height="71" rx="7.5" fill="none"/>
+    </g>
+  </g>
+  <image id="wall" width="60" height="60" transform="translate(6 6)" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAQAAAAAYLlVAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfkBQUUAiHbT/UGAAAByElEQVRo3u2ZsWsUQRSHv3duETwQDHgQrNRCMIUi3MZKsQ2IWGjhNSlMpZ1Bgn+AiFyplRY2aSISREgZSSpvDjUWOUiRdIkSQSFw4ap7FjfIjQjzGtnm/Yp9O8v3Zr8pFnZ2JSj59MppgO59fZ6H5UHzBUDY4kKerhlu/1/jAi7gApULFHzOQ7IzqsMDMdDDg9i1pYOql+cxRMLDZNwtNwA6t+Rsvnn48sohfDxRm8+zujuzAhCu0hy/XtBOuDYbANxj1jDpWw5BJ/+a499ZZQWAGyyMX678MXQBF3CBygUKbY0PpRfrM13KNx//MToOWnlW9uLJkn6petGeJBL2DdR2eR0gzPHEQD8uXwOED5zPwwVThil/Rdu6Gmipx5OGZe7KH0MXcAEXKPhmoOJmS/sWWvt/uk5WvTyPIdK5mwx75SZAuKan880T7y724Wt9cNNwo71yHSBc0uTrYSHpm0+bTQB9JIat2dEZ+nB06pjh7UlXWQegJb41cwEXcIEkRfrFhm6sr1jLN8vPeFzIs+zG+p7vVS/ak0TCJwO007wD0Lkti3lan868Aegu67k8XXDZMOXEqNYaaqBrjdg17b/tXMAFXMCS3/rRcPZBh1DGAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIwLTA1LTA1VDIwOjAyOjMzKzAwOjAwErM/sAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMC0wNS0wNVQyMDowMjozMyswMDowMGPuhwwAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC"/>
+</svg>

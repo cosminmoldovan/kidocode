@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>KidoCode</title>
+<link rel="stylesheet" href="styles/style.css" />
+</head>
+
+<body>
+    <div id="loader" class="loader">
+        <div class="loader-content">
+        <img class="anim-logo" src="images/logo.svg" width="64" height="64">
+        <span class="anim-text">KidoCode is loading...</span>
+        </div>
+      </div>
+<div id="big-container">
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo.svg" width="24" height="24"><div>&nbsp;KidoCode<sup class="beta">beta</sup></div>
+            </div>
+            <div></div>
+            <div class="menu">
+                <div id="help-btn" class="menu-btn"><img src="images/help.svg">help</div>
+                <div id="settings-btn" class="menu-btn"><img src="images/settings.svg">settings</div>
+                <div id="account-btn" class="menu-btn"><img src="images/account.svg"><span id="user-name"></span></div>
+                <div class="status">
+                    <div id="nrlevel" style="display: none;">0</div>
+                    <div class="status-btn xp"><img src="images/flame.svg"><div><span id="xp" class="nrxp">0</span></div></div>
+                    <div class="status-btn poke"><img src="images/pokeball.svg"><div><span  id = "nrpoke" class="nrpokemons">0</span> </div></div>
+                </div>
+            </div>
+        </nav>
+        <div id="level-progress-indicator" class="level-progress-indicator">
+        </div>
+    </header>
+    <main>
+        <section class="play-section">
+            <div id="btnContainer">
+                <button class="reset actionbtn hover" id="reset"><img
+                        src="images/replay.svg"><span>reset</span></button>
+                <button class="run actionbtn hover" id="run"><img src="images/play.svg"><span>run</span></button>
+            </div>
+
+            <div id="canvasContainer">
+                <canvas id="canvas">
+                    Your browser does not support HTML5 Canvas!
+                </canvas>
+            </div>
+        </section>
+
+        <section id="code-section">
+            <div id="zone">
+                <div class="tabs">
+                    <button class="tablinks link-active" onclick="switchCodePanel(event, 'main-panel')">main</button>
+                    <button class="tablinks" onclick="switchCodePanel(event, 'procedure-panel')">procedure</button>
+                </div>
+
+                <div class="code-panel" id="main-panel" style="display: flex;">
+                </div>
+
+                <div class="code-panel" id="procedure-panel">
+                </div>
+            </div>
+            <div class="code-blocks-container">
+                <div class="forward code-block draggable" data-instruction="forward" draggable="true">
+                    <span>move forward</span>
+                </div>
+                <div class="turnleft code-block draggable" data-instruction="left" draggable="true">
+                    <span>turn&nbsp;</span>
+                    <div class="turn-menu" onclick="displayMenu(this)">
+                        <div class="turn-value">left</div>
+                        <div class="dropdown-arrow">
+                            <image src="images/dropdown-arrow.svg"></image>
+                        </div>
+                    </div>
+                    <div class="turn-options-menu">
+                        <div class="turn-option" onclick="selectedOption(this)">left</div>
+                        <div class="turn-option" onclick="selectedOption(this)">right</div>
+                    </div>
+                </div>
+                <div class="catch code-block draggable" data-instruction="catch" draggable="true">
+                    <span>catch</span>
+                </div>
+                <div class="proc code-block draggable" data-instruction="procedure" draggable="true">
+                    <span>procedure {}</span>
+                </div>
+                <div class="if code-block draggable" data-instruction="ifwall" draggable="true">
+                    <span>if wall</span>
+                </div>
+                <div class="if code-block draggable" data-instruction="else" draggable="true">
+                    <span>else</span>
+                </div>
+                <div class="if code-block draggable" data-instruction="endif" draggable="true">
+                    <span>END if</span>
+                </div>
+                <div class="repeat code-block draggable" data-instruction="repeat" draggable="true">
+                    <div>repeat</div>
+                    <div class="nrit" onclick="increaseValue(this)">1</div>
+                </div>
+                <div class="repeat code-block draggable" data-instruction="endrepeat" draggable="true">
+                    <span>END repeat</span>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div id="next-level-dialog" class="next-level-dialog">
+        <div class="next-level-content-box">
+            <div class="pokeart"></div>
+            <div class="next-level-content">
+                <div class="congrat">
+                    <img src="images/awesome.svg">
+                    &nbsp;Congratulations!
+                </div>
+                <div id="next-level-mesage">
+                    You just captured one more pokemon:
+                    <div class="pokeinfo"> 
+                        <img id="poke-img" src="" alt="img" width="48">
+                        <div>name: <span id="poke-name"></span></div>
+                        <div>power: <span id="poke-power"></span></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ready">
+                        Are you ready for <span style="font-weight: bold;font-size: 18px;">next level?</span>
+                    </div>
+                    <div class="next-level-btn">
+                        <button id = "resume-level" class="cancel actionbtn hover">resume</button>
+                        <button id = "continue-level" class="run actionbtn hover">continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+<div id="universal-dialog" class="next-level-dialog">
+    <div class="next-level-content-box universal-content-box">
+        <div class="header-dialog">
+            <div>header dialog box</div>
+            <div  id="exit-dialog-btn" class="exit-dialog-btn">x</div>
+        </div>
+        <div id="universal-content" class="dialog-content">something</div>
+    </div>   
+</div>
+    <script type="module" src="scripts/main.js"></script>
+    <script src="scripts/utilities.js"></script>
+</body>
+
+</html>
